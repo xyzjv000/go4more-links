@@ -14,19 +14,19 @@ function App() {
 
   const handleClose = (arr) => {
     console.log(arr);
-    if(typeof(arr) === 'string' && arr !== '') {
+    if (typeof (arr) === 'string' && arr !== '') {
       let result = arr.split(/\r?\n|\r|\n/g);
       console.log(result);
       setLinks(result)
     }
-    else if(typeof(arr) === 'string' && arr === '') {
+    else if (typeof (arr) === 'string' && arr === '') {
       setLinks([])
     }
     setOpen(false);
   };
 
   const openLink = (i) => {
-    console.log(i,"open");
+    console.log(i, "open");
     window.open(links[i], '_blank');
   }
   const removeLink = (i) => {
@@ -52,7 +52,7 @@ function App() {
           Generate URL
         </Button>
         {links.length > 0 && <Button variant="outlined" onClick={openAllLink}>
-          Open All Links
+          Open All Links {links.length}
         </Button>}
         <TableLinks links={links} openLink={openLink} removeLink={removeLink} />
       </div>
