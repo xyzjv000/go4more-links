@@ -7,6 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { Button } from "@mui/material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -28,38 +29,35 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(link, openAction, deleteAction) {
-  return { link, openAction, deleteAction };
-}
+export default function TableLinks(props) {
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0),
-  createData("Ice cream sandwich", 237, 9.0),
-  createData("Eclair", 262, 16.0),
-  createData("Cupcake", 305, 3.7),
-  createData("Gingerbread", 356, 0),
-];
+  React.useEffect(() => {
+    setRows(props.links)
+  },[props.links])
 
-export default function TableLinks() {
+  const [rows, setRows] = React.useState([])
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Link</StyledTableCell>
+            <StyledTableCell style={{width: '80%'}}>Link</StyledTableCell>
             <StyledTableCell align="right">Open</StyledTableCell>
             <StyledTableCell align="right">Delete</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.link}>
+          {rows && rows.map((row, index) => (
+            <StyledTableRow key={row.link + index}>
               <StyledTableCell component="th" scope="row">
-                {row.link}
+                {row}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.openAction}</StyledTableCell>
               <StyledTableCell align="right">
-                {row.deleteAction}
+                <Button onClick={() => {props.openLink(index)}}>Open</Button>
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                <Button onClick={() => {props.removeLink(index)}}>Remove</Button>
               </StyledTableCell>
             </StyledTableRow>
           ))}

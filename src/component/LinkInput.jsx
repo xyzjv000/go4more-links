@@ -8,6 +8,16 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 export default function LinkInput(props) {
+  const [text, setText] = React.useState('')
+  const onChangeHandler = (e) => {
+    let txt = e.target.value;
+    setText(txt)
+  }
+
+  const onGenerate = () => {
+    props.handleClose(text)
+    setText('')
+  }
   return (
     <div>
       <Dialog open={props.open} onClose={props.handleClose}>
@@ -22,16 +32,18 @@ export default function LinkInput(props) {
             autoFocus
             margin="dense"
             id="lniks"
+            value={text}
             label="Links"
             fullWidth
             variant="outlined"
             multiline
+            onChange={onChangeHandler}
             rows={15}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={props.handleClose}>Cancel</Button>
-          <Button onClick={props.handleClose}>Generate</Button>
+          <Button onClick={onGenerate}>Generate</Button>
         </DialogActions>
       </Dialog>
     </div>
