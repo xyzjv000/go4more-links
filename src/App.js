@@ -16,8 +16,8 @@ function App() {
     console.log(arr);
     if (typeof (arr) === 'string' && arr !== '') {
       let result = arr.split(/\r?\n|\r|\n/g);
-      console.log(result);
-      setLinks(result)
+      let finalResult = result.filter(res => res !== '')
+      setLinks(finalResult)
     }
     else if (typeof (arr) === 'string' && arr === '') {
       setLinks([])
